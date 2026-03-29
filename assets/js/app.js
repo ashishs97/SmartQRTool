@@ -374,7 +374,7 @@ function render(){
 }
 
 /* ═══ ACTIONS ═══ */
-function dlQR(){var a=document.createElement('a');a.download='QRForge.png';a.href=$('qr-out').toDataURL('image/png');a.click();cfetti();toast('Downloaded!','#10B981');}
+function dlQR(){var a=document.createElement('a');a.download='SmartQRTool.png';a.href=$('qr-out').toDataURL('image/png');a.click();cfetti();toast('Downloaded!','#10B981');}
 function shareQR(){$('qr-out').toBlob(function(b){var f=new File([b],'qr.png',{type:'image/png'});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'QR Code'}).catch(function(){dlQR();});}else dlQR();});}
 function cpyQR(){$('qr-out').toBlob(function(b){try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied!','#10B981');}catch(e){dlQR();}});}
 function cpyContent(){var c=bContent();if(!c){toast('Generate first!','#EF4444');return;}navigator.clipboard.writeText(c).then(function(){toast('Copied!','#10B981');}).catch(function(){toast('Failed','#EF4444');});}
