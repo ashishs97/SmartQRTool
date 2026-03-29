@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- ═══ SEO META TAGS ═══ -->
+<title>Free QR Code Generator Online — QRifyPro</title>
+<meta name="description" content="Free QR code generator online. Create QR codes for URL, WiFi, WhatsApp, vCard, UPI and more. No signup required. Download instantly. Best free QR generator in India.">
+<meta name="keywords" content="free qr code generator, qr code banana, qr code generator india, free qr generator online, url qr code, wifi qr code, whatsapp qr code, vcard qr code, qr code download">
+<meta name="author" content="QRifyPro">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ashishs97.github.io/QRifyPro/">
+
+<!-- ═══ OPEN GRAPH ═══ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ashishs97.github.io/QRifyPro/">
+<meta property="og:title" content="Free QR Code Generator — QRifyPro">
+<meta property="og:description" content="Create free QR codes for URL, WiFi, WhatsApp, vCard and more. No signup. Instant download.">
+
+<!-- ═══ TWITTER CARD ═══ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free QR Code Generator — QRifyPro">
+<meta name="twitter:description" content="Create free QR codes instantly. No signup required.">
+
+<!-- ═══ GOOGLE ADSENSE ═══ -->
+<!-- Step 1: AdSense apply karo at adsense.google.com -->
+<!-- Step 2: Approval milne ke baad neeche ka comment hatao aur apna Publisher ID daalo -->
+<!--
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ═══ STRUCTURED DATA (Google Rich Results) ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "QRifyPro — Free QR Code Generator",
+  "url": "https://ashishs97.github.io/QRifyPro/",
+  "description": "Free online QR code generator. Create QR codes for URL, WiFi, WhatsApp, vCard and more. No signup required.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Ashish"
+  }
+}
+</script>
+
+<canvas id="cfcv"></canvas>
+<div id="toast"></div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="qnav">
+  <div style="display:flex;align-items:center;gap:9px">
+    <div class="qnav-logo">&#x2B21;</div>
+    <span class="qnav-brand">QR<b>Forge</b></span>
+    <span class="qnav-pill">FREE</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px">
+    <button class="qnav-btn" id="dbtn" onclick="toggleDk()" title="Dark mode"><span class="svg-ico"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg></span></button>
+    <button class="qnav-btn" onclick="resetAll()" title="Reset"><span class="svg-ico"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/></svg></span></button>
+  </div>
+</nav>
+
+<!-- no tab bar needed -->
+
+<!-- ═══ WORKSPACE ═══ -->
+<div class="ws">
+
+  <!-- PREVIEW COL -->
+  <div class="ws-prev mob-active" id="ws-prev">
+    <div class="qcard text-center">
+      <div style="display:flex;justify-content:center;margin-bottom:4px">
+        <div class="qr-ring" id="qr-ring">
+          <div style="position:relative">
+            <div class="qr-ph" id="qr-ph" style="width:150px;height:150px">
+              <span class="ph-i">&#x2B21;</span>
+              <div>Enter content below<br>to generate your QR</div>
+            </div>
+            <canvas id="qr-out"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="uchip" id="uchip"><div class="udot"></div><span class="utxt" id="utxt"></span></div>
+      <div class="qstats" id="qstats">
+        <div class="spill"><div class="sdot"></div><span id="ss">240x240</span></div>
+        <div class="spill"><div class="sdot" style="background:#10B981"></div><span id="st">URL</span></div>
+        <div class="spill"><div class="sdot" style="background:#F59E0B"></div><span id="se">EC:L</span></div>
+      </div>
+      <div class="arow" id="arow">
+        <button class="btn-dl" onclick="dlQR()"><span class="svg-ico"><svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg></span> Download</button>
+        <button class="btn-sq" onclick="shareQR()" title="Share"><span class="svg-ico"><svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg></span></button>
+        <button class="btn-sq" onclick="cpyQR()" title="Copy"><span class="svg-ico"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg></span></button>
+      </div>
+      <div class="arow2" id="arow2">
+        <button class="btn-ghost" onclick="cpyContent()"><span class="svg-ico"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1z"/></svg></span> Copy</button>
+        <button class="btn-ghost" onclick="testScan()"><span class="svg-ico"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></span> Test</button>
+      </div>
+    </div>
+    <!-- History (desktop) -->
+    <div class="qcard d-none d-lg-block">
+      <div class="slbl">History</div>
+      <div id="hd"></div>
+      <button class="btn-ghost w-100 mt-2" onclick="clearHist()" style="font-size:11px"><span class="svg-ico"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></span> Clear History</button>
+    </div>
+  </div>
+
+  <!-- EDITOR COL -->
+  <div class="ws-edit" id="ws-edit">
+
+    <!-- Content card -->
+    <div class="qcard">
+      <div class="slbl">QR Content</div>
+      <div class="tscroll" id="tscroll"></div>
+      <div id="dfields"></div>
+      <!-- ═══ AD SLOT — Banner (uncomment after AdSense approval) ═══ -->
+<!--
+<div style="margin:10px 0;text-align:center;min-height:90px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  
+</div>
+-->
+<button class="btn-gen" onclick="go()"><span class="svg-ico"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 2h2v2H2V2z"/><path d="M6 0v6H0V0h6zM5 1H1v4h4V1zM4 12H2v2h2v-2z"/><path d="M6 10v6H0v-6h6zm-5 1v4h4v-4H1zm11-9h2v2h-2V2z"/><path d="M10 0v6h6V0h-6zm5 1v4h-4V1h4zm-3 11h2v2h-2v-2z"/><path d="M10 10h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2-6h2v2h-2v-2zm2 2h2v2h-2v-2zm-4-2h2v2h-2v-2zm0 4h2v2h-2v-2z"/></svg></span> Generate QR Code</button>
+    </div>
+
+    <!-- Customize card -->
+    <div class="qcard">
+      <div class="slbl">Customize</div>
+      <div class="ctabs">
+        <button class="ctab on" onclick="sw('frame',this)"><span class="ctab-i">&#x1F5BC;</span><span class="ctab-l">Frame</span></button>
+        <button class="ctab" onclick="sw('color',this)"><span class="ctab-i">&#x1F3A8;</span><span class="ctab-l">Color</span></button>
+        <button class="ctab" onclick="sw('style',this)"><span class="ctab-i">&#x2726;</span><span class="ctab-l">Style</span></button>
+        <button class="ctab" onclick="sw('logo',this)"><span class="ctab-i">&#x1F3F7;</span><span class="ctab-l">Logo</span></button>
+        <button class="ctab" onclick="sw('biz',this)"><span class="ctab-i">&#x1F3E2;</span><span class="ctab-l">Brand</span></button>
+        <button class="ctab" onclick="sw('adv',this)"><span class="ctab-i">&#x2699;</span><span class="ctab-l">More</span></button>
+      </div>
+
+      <!-- FRAME -->
+      <div class="tb on" id="tb-frame">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span class="flbl" style="margin:0;white-space:nowrap;flex-shrink:0">Label</span>
+          <input class="qinp" id="flbl" placeholder="SCAN ME" style="max-width:160px;padding:7px 11px;font-size:13px" oninput="render()">
+        </div>
+        <div class="fgrid" id="fgrid"></div>
+      </div>
+
+      <!-- COLOR -->
+      <div class="tb" id="tb-color">
+        <div class="cgrid mb-3">
+          <div class="cbox">
+            <div class="cplbl">QR Color</div>
+            <div class="cprow"><div class="cpsw"><input type="color" id="fg-c" value="#000000" oninput="setCol('fg',this.value)"><div class="cpswb" id="fg-b" style="background:#000"></div></div><input class="cphex" id="fg-h" value="#000000" maxlength="7" oninput="setHex('fg',this.value)"></div>
+            <div class="pdots" id="fg-p"></div>
+          </div>
+          <div class="cbox">
+            <div class="cplbl">Background</div>
+            <div class="cprow"><div class="cpsw"><input type="color" id="bg-c" value="#ffffff" oninput="setCol('bg',this.value)"><div class="cpswb" id="bg-b" style="background:#fff"></div></div><input class="cphex" id="bg-h" value="#ffffff" maxlength="7" oninput="setHex('bg',this.value)"></div>
+            <div class="pdots" id="bg-p"></div>
+          </div>
+        </div>
+        <div class="cbox mb-3">
+          <div class="cplbl">Frame / Accent</div>
+          <div class="cprow"><div class="cpsw"><input type="color" id="fc-c" value="#5046E5" oninput="setCol('fc',this.value)"><div class="cpswb" id="fc-b" style="background:#5046E5"></div></div><input class="cphex" id="fc-h" value="#5046E5" maxlength="7" oninput="setHex('fc',this.value)"></div>
+          <div class="pdots" id="fc-p"></div>
+        </div>
+        <div class="tgrow">
+          <button class="tgbtn" id="gbtn" onclick="togGrad(this)"><div class="tgdot"></div>Gradient</button>
+        </div>
+        <div id="g2w" style="display:none;margin-top:8px">
+          <div class="cbox">
+            <div class="cplbl">Gradient Color 2</div>
+            <div class="cprow"><div class="cpsw"><input type="color" id="g2-c" value="#7C3AED" oninput="setCol('g2',this.value)"><div class="cpswb" id="g2-b" style="background:#7C3AED"></div></div><input class="cphex" id="g2-h" value="#7C3AED" maxlength="7" oninput="setHex('g2',this.value)"></div>
+            <div class="pdots" id="g2-p"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STYLE -->
+      <div class="tb" id="tb-style">
+        <div class="mb-3"><label class="flbl">Dot Style</label><div class="sgrid mt-1" id="dgrid"></div></div>
+        <div><label class="flbl">Eye Style</label><div class="sgrid mt-1" id="egrid"></div></div>
+      </div>
+
+      <!-- LOGO -->
+      <div class="tb" id="tb-logo">
+        <div class="ldrop" id="ldrop" onclick="document.getElementById('linp').click()">
+          <span class="svg-ico" style="opacity:.25;display:block;margin-bottom:4px"><svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/></svg></span>
+          <div class="lt">Click to upload logo</div>
+          <div class="ls">PNG / JPG / SVG &mdash; max 2MB</div>
+          <input type="file" id="linp" accept="image/*" style="display:none" onchange="handleLogo(event)">
+        </div>
+        <div id="lup" style="display:none">
+          <div class="linfo">
+            <img id="lthumb" class="lthumb" src="" alt="">
+            <div><div style="font-size:12px;font-weight:700;color:var(--tx)">Logo loaded</div><button class="btn-sm" onclick="removeLogo()">Remove</button></div>
+          </div>
+          <label class="flbl">Size</label>
+          <div class="slwrap"><input type="range" class="qsl" id="lsz" min="10" max="35" value="22" oninput="setLSz(this)" style="--v:50%"><span class="slval" id="lszv">22%</span></div>
+          <div class="tgrow mt-2"><button class="tgbtn on" id="lbgbtn" onclick="togLBg(this)"><div class="tgdot"></div>White BG</button></div>
+        </div>
+      </div>
+
+      <!-- BRAND -->
+      <div class="tb" id="tb-biz">
+        <div class="row g-2 mb-2">
+          <div class="col-6"><label class="flbl">Brand</label><input class="qinp" id="bb" placeholder="Your Brand" oninput="ubp();render()"></div>
+          <div class="col-6"><label class="flbl">Tagline</label><input class="qinp" id="bs" placeholder="yoursite.com" oninput="ubp();render()"></div>
+        </div>
+        <div class="mb-2"><label class="flbl">Footer</label><input class="qinp" id="bf" placeholder="SCAN TO VISIT" oninput="render()"></div>
+        <label class="flbl mb-1">Color</label>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px" id="bct"></div>
+        <div class="bizprev" id="bprev">
+          <div id="bn" style="font-weight:800;font-size:14px;line-height:1.2">Your Brand</div>
+          <div id="bns" style="font-size:10px;opacity:.7;margin-top:2px">yoursite.com</div>
+        </div>
+      </div>
+
+      <!-- MORE -->
+      <div class="tb" id="tb-adv">
+        <div class="mb-3">
+          <label class="flbl">QR Size</label>
+          <div class="slwrap mt-1"><input type="range" class="qsl" id="szsl" min="160" max="440" value="240" step="20" oninput="setQSz(this)" style="--v:40%"><span class="slval" id="szv">240px</span></div>
+        </div>
+        <div>
+          <label class="flbl">Error Correction</label>
+          <div class="ecgrid mt-1" id="ecgrid"></div>
+          <div style="font-size:10px;color:var(--tx3);margin-top:5px">H = best for logos &middot; L = smallest size</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History mobile -->
+    <div class="qcard d-lg-none">
+      <div class="slbl">History</div>
+      <div id="hm"></div>
+      <button class="btn-ghost w-100 mt-2" onclick="clearHist()" style="font-size:11px"><span class="svg-ico"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></span> Clear History</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/qr-engine.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

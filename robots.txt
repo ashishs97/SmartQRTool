@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ashishs97.github.io/QRifyPro/sitemap.xml
